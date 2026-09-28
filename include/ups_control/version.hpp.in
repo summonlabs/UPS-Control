@@ -1,0 +1,21 @@
+#pragma once
+
+// Generated from version.hpp.in by the UPS Control CMake build.
+// Do not edit the generated copy; edit include/ups_control/version.hpp.in.
+
+#define UPS_CONTROL_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define UPS_CONTROL_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define UPS_CONTROL_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#define UPS_CONTROL_VERSION_STRING "@PROJECT_VERSION@"
+
+namespace ups_control {
+
+/// Semantic version of the UPS Control library as compiled into the artifact.
+struct Version {
+  static constexpr int major = UPS_CONTROL_VERSION_MAJOR;
+  static constexpr int minor = UPS_CONTROL_VERSION_MINOR;
+  static constexpr int patch = UPS_CONTROL_VERSION_PATCH;
+  static constexpr const char* string = UPS_CONTROL_VERSION_STRING;
+};
+
+}  // namespace ups_control

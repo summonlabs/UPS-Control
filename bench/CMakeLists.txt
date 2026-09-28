@@ -1,0 +1,3 @@
+add_executable(ups_control_bench bench_ups.cpp)
+target_link_libraries(ups_control_bench PRIVATE ups_control)
+ups_control_apply_strict_options(ups_control_bench)

@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/UpsControlTargets.cmake")
+
+check_required_components(UpsControl)
+
+set(UpsControl_VERSION "@PROJECT_VERSION@")
+set(UpsControl_VERSION_MAJOR "@PROJECT_VERSION_MAJOR@")
+set(UpsControl_VERSION_MINOR "@PROJECT_VERSION_MINOR@")
+set(UpsControl_VERSION_PATCH "@PROJECT_VERSION_PATCH@")
