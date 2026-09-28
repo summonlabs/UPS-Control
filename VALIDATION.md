@@ -157,16 +157,37 @@ generation match what was committed.
 ```
 consumer: ups_control 1.0.0
 consumer: generation=9 canonical_digest=2605192002058532539
-consumer: recovered_lifecycle=recovered operating=static_bypass basis=verified
+consumer: recovered_lifecycle=recovered operating=static_bypass basis=recovered
 consumer: device_evidence=SYNTHETIC
 consumer: ok
 ```
 
-``basis=verified` there is the value read back by the *store* layer, which returns
-the committed field verbatim; the engine reports `Recovered` for a unit that was not
-confirmed in the current session, which is what the library's own recovery tests
-assert and what the CLI prints.
+`basis=recovered` is the documented rule in action: the unit was `verified` when the
+store was written, and a session that only read the state back reports `Recovered`
+until telemetry, an adopted state, or a verified effect establishes a stronger basis
+in that session. `UpsStore::read_file` still returns the committed field verbatim,
+which is what the field-by-field round-trip contract requires.
 
+```
+fresh clone, configure -> build -> ctest -> install -> downstream -> examples
+configure_exit=0  build_exit=0  ctest_exit=0
+100% tests passed, 0 tests failed out of 15     (65.0 s)
+install_exit=0    downstream_exit=0
+example_lifecycle exit=0  example_bypass_refusal exit=0
+example_stale_evidence exit=0  example_restart exit=0
+compiler diagnostics: 0
+```
+
+The fresh clone was taken from the pushed commit and built outside the source tree.
+The only diagnostics in its build log were 26 occurrences of the MSBuild advisory
+that an intermediate directory should not reside under the temporary directory, which
+is a property of where the clone was placed rather than of the code.
+
+The benchmark was also run from the fresh clone at 100 repetitions: 952.5 completed
+store opens per second, 94.8 durable telemetry commits per second, and 45.9 completed
+control attempts per second, with `cleanup_state=clean`. Those differ from the
+300-repetition numbers below only by run-to-run variance and are not presented as a
+comparison.
 ## Benchmarks
 
 Methodology. Every measurement times a whole completed operation, including all of
