@@ -1,7 +1,6 @@
 # UPS Control
 
-UPS Control is the vendor-neutral UPS control and lifecycle model of the Summon
-Software Labs Data Center Control Plane. It answers one question for one
+UPS Control is the vendor-neutral UPS control and lifecycle model. It answers one question for one
 uninterruptible power supply at a time:
 
 > **What operating transition may this UPS safely perform now, given its
